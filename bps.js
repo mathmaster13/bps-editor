@@ -47,6 +47,12 @@ BPS.prototype.fullString=function(){
 	${this.metaData.length === 0 ? "This patch has no metadata." : "Metadata: "}${this.metaData}
 	<br>
 	#Actions: ${this.actions.length}
+	<br>
+	Source checksum: ${'0000000' + this.sourceChecksum.toString(16).slice(-8)}
+	<br>
+	Target checksum: ${'0000000' + this.targetChecksum.toString(16).slice(-8)}
+	<br>
+	Patch checksum: ${'0000000' + this.patchChecksum.toString(16).slice(-8)}
 	</p>
 	<p>
 	Actions:
