@@ -38,6 +38,44 @@ BPS.prototype.toString=function(){
 	s+='\n#Actions: '+this.actions.length;
 	return s
 }
+
+BPS.prototype.fullString=function(){
+	let s = `<p>Source size: ${this.sourceSize}
+	<br>
+	Target size: ${this.targetSize}
+	<br>
+	${this.metaData.length === 0 ? "This patch has no metadata." : "Metadata: "}${this.metaData}
+	<br>
+	#Actions: ${this.actions.length}
+	</p>
+	<p>
+	Actions:
+	<br><br>`;
+	for (const action of this.actions) {
+		s += `Action type: ${BPS.name_of_type(action.type)}<br>`;
+		if (action.type === BPS_ACTION_TARGET_READ) {
+			s += `Bytes: <code>${action.bytes.map((byte) => ('0' + byte.toString(16)).slice(-2)).join(" ").toUpperCase()}</code><br>`;
+		} else {
+			s += `Length: ${action.length}<br>`;
+			if (action.type === BPS_ACTION_SOURCE_COPY
+				|| action.type === BPS_ACTION_TARGET_COPY) {
+				s += `Offset: ${action.relativeOffset}<br>`;
+			}
+		}
+		s += `<br>`;
+	}
+	s += `</p>`;
+	return s;
+}
+
+BPS.name_of_type = function(type) {
+	if (type === BPS_ACTION_SOURCE_READ) return "Source read";
+	if (type === BPS_ACTION_TARGET_READ) return "Target read";
+	if (type === BPS_ACTION_SOURCE_COPY) return "Source copy";
+	if (type === BPS_ACTION_TARGET_COPY) return "Target copy";
+	throw new Error(`Type numbers must be between 0 and 3: ${type} is out of range.`);
+}
+
 BPS.prototype.calculateFileChecksum = function () {
 	var patchFile = this.export();
 	return patchFile.hashCRC32(0, patchFile.fileSize - 4);

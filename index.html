@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+    <title>bps viewer | mathmaster13.github.io</title>
+    <meta name="generator" content="Jekyll v3.9.0" />
+    <meta property="og:title" content="welcome" />
+    <meta property="og:locale" content="en_US" />
+    <link rel="canonical" href="https://mathmaster13.github.io/bps-editor/" />
+    <meta property="og:url" content="https://mathmaster13.github.io/bps-editor/" />
+    <meta property="og:site_name" content="mathmaster13.github.io" />
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:title" content="bps viewer" />
+    <script type="application/ld+json">
+        {"headline":"welcome","url":"https://mathmaster13.github.io/","@type":"WebSite","name":"mathmaster13.github.io","@context":"https://schema.org"}</script>
+    <!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../assets/css/style.css?v=">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+    <!-- Setup Google Analytics -->
+
+
+
+    <!-- You can set your favicon here -->
+    <!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+    <!-- end custom head snippets -->
+
+</head>
+<body>
+<div class="container-lg px-3 my-5 markdown-body">
+
+    <h1>BPS Viewer</h1>
+
+    <p>With slightly less hex.</p>
+
+    <label for="bps-picker">Select a BPS file:</label>
+
+    <input type="file" accept=".bps" id="bps-picker" name="bps-picker" />
+    <button onClick="onSubmit()">View File</button>
+
+    <div id="output"></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+<script>anchors.add();</script>
+<script src="bps.js"></script>
+<script src="BinFile.js"></script>
+<script src="HashCalculator.js"></script>
+<script>
+    "use strict";
+
+    const input = document.getElementById("bps-picker");
+    const output = document.getElementById("output");
+    async function onSubmit() {
+        const files = input.files;
+        if (files.length === 0) {
+            output.innerHTML = "No file selected. Please try again.";
+            return;
+        }
+        if (files.length > 1) {
+            output.innerHTML = "Too many files. This should be impossible. Please contact me.";
+            return;
+        }
+        const file = files[0];
+        const bin = new BinFile(file, () => {
+            const bps = BPS.fromFile(new BinFile(bin));
+            output.innerHTML = bps.fullString();
+        });
+    }
+</script>
+</body>
+</html>
