@@ -41,8 +41,7 @@
 
     <label for="bps-picker">Select a BPS file:</label>
 
-    <input type="file" accept=".bps" id="bps-picker" name="bps-picker" />
-    <button onClick="onSubmit()">View File</button>
+    <input type="file" accept=".bps" id="bps-picker" name="bps-picker" onchange="onSubmit()"/>
 
     <div id="output"></div>
 </div>
