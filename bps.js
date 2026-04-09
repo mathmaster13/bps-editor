@@ -48,11 +48,11 @@ BPS.prototype.fullString=function(){
 	<br>
 	#Actions: ${this.actions.length}
 	<br>
-	Source checksum: ${'0000000' + this.sourceChecksum.toString(16).slice(-8)}
+	Source checksum: ${('0000000' + this.sourceChecksum.toString(16)).slice(-8)}
 	<br>
-	Target checksum: ${'0000000' + this.targetChecksum.toString(16).slice(-8)}
+	Target checksum: ${('0000000' + this.targetChecksum.toString(16)).slice(-8)}
 	<br>
-	Patch checksum: ${'0000000' + this.patchChecksum.toString(16).slice(-8)}
+	Patch checksum: ${('0000000' + this.patchChecksum.toString(16)).slice(-8)}
 	</p>
 	<p>
 	Actions:
