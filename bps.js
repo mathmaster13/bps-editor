@@ -142,7 +142,10 @@ BPS.prototype.apply=function(romFile, validate){
 BPS.MAGIC=BPS_MAGIC;
 
 
-BPS.fromFile=function(file){
+BPS.fromFile=function(file, verify_checksum){
+	if (verify_checksum === undefined)
+		verify_checksum = true;
+	
 	file.readVLV=BPS_readVLV;
 
 	file.littleEndian=true;
@@ -181,7 +184,7 @@ BPS.fromFile=function(file){
 	patch.targetChecksum=file.readU32();
 	patch.patchChecksum=file.readU32();
 
-	if (patch.patchChecksum !== patch.calculateFileChecksum()) {
+	if (verify_checksum && (patch.patchChecksum !== patch.calculateFileChecksum())) {
 		throw new Error('Patch checksum mismatch');
 	}
 
