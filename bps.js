@@ -51,7 +51,6 @@ BPS.prototype.toString=function(){
 }
 
 function escapeHtml (string) {
-  console.log("here");
   var str = '' + string
   var match = /["'&<>]/.exec(str)
 
@@ -116,7 +115,7 @@ BPS.prototype.fullString=function(){
 	</p>
 	<p>
 	Actions:
-	<br><br>`; console.log("made it");
+	<br><br>`;
 	for (const action of this.actions) {
 		s += `Action type: ${BPS.name_of_type(action.type)}<br>`;
 		if (action.type === BPS_ACTION_TARGET_READ) {
