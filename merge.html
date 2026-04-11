@@ -70,11 +70,16 @@
     const viewer = document.getElementById("viewer");
 
     async function onSubmit() {
+        output.innerHTML = "";
         const bps = (await merge());
+        console.log("and here");
         if (!bps) {
-            output.innerHTML = "";
+            if (output1.innerHTML = "" && output2.innerHTML = "") {
+                output.innerHTML = "ERROR";
+            }
         } else {
             output.innerHTML = bps.fullString();
+            console.log("here too");
             bps.export("merged.bps").save();
         }
     }
@@ -82,6 +87,7 @@
     async function merge() {
         getBPS(patch1, (bps1) => {
             getBPS(patch2, (bps2) => {
+                console.log("got past bps");
                 BPS.merge_without_checksum(bps1, bps2)
             };
         };
@@ -97,12 +103,13 @@
             output.innerHTML = "Too many files. This should be impossible. Please contact me.";
             return;
         }
-        output.innerHTML = "";
         const file = files[0];
         let bps = undefined;
         const bin = new BinFile(file, () => {
            bps = BPS.fromFile(bin);
-           return callback(bps);
+           value = callback(bps);
+            output.innerHTML = "";
+            return value;
         });
     }
 </script>
