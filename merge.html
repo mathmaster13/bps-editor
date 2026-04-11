@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+    <title>bps merger | mathmaster13.github.io</title>
+    <meta name="generator" content="Jekyll v3.9.0" />
+    <meta property="og:title" content="welcome" />
+    <meta property="og:locale" content="en_US" />
+    <link rel="canonical" href="https://mathmaster13.github.io/bps/merge.html" />
+    <meta property="og:url" content="https://mathmaster13.github.io/bps/merge.html" />
+    <meta property="og:site_name" content="mathmaster13.github.io" />
+    <meta name="twitter:card" content="summary" />
+    <meta property="twitter:title" content="bps viewer" />
+    <script type="application/ld+json">
+        {"headline":"merge","url":"https://mathmaster13.github.io/","@type":"WebSite","name":"mathmaster13.github.io","@context":"https://schema.org"}</script>
+    <!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="../assets/css/style.css?v=">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+    <!-- Setup Google Analytics -->
+
+
+
+    <!-- You can set your favicon here -->
+    <!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+    <!-- end custom head snippets -->
+
+</head>
+<body>
+<div class="container-lg px-3 my-5 markdown-body">
+
+    <h1>Merge BPS Files</h1>
+
+    <p>Without a source file. (You won't get checksums, though.)</p>
+
+    <label for="patch1-picker">Select the first BPS file:</label>
+
+    <input type="file" accept=".bps" id="patch1-picker" name="patch1-picker" />
+
+    <label for="patch2-picker">Select the second BPS file:</label>
+
+    <input type="file" accept=".bps" id="patch2-picker" name="patch2-picker" />
+
+    <div id="output"></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+<script>anchors.add();</script>
+<script src="bps.js"></script>
+<script src="BinFile.js"></script>
+<script src="HashCalculator.js"></script>
+<script>
+    "use strict";
+
+    const patch1 = document.getElementById("patch1-picker");
+    const patch2 = document.getElementById("patch2-picker");
+    const output = document.getElementById("output");
+
+    async function onSubmit() {
+        bps1 = getBPS(patch1);
+        bps2 = getBPS(patch2);
+        BPS.merge_without_checksum(bps1, bps2);
+    }
+  
+    async function getBPS(input) {
+        const files = input.files;
+        if (files.length === 0) {
+            output.innerHTML = "No file selected. Please try again.";
+            return;
+        }
+        if (files.length > 1) {
+            output.innerHTML = "Too many files. This should be impossible. Please contact me.";
+            return;
+        }
+        const file = files[0];
+        let bps = undefined;
+        const bin = new BinFile(file, () => {
+           bps = BPS.fromFile(new BinFile(bin));
+        });
+        while (!bps) {}
+        return bps;
+    }
+</script>
+</body>
+</html>
