@@ -68,9 +68,10 @@
     const output1 = document.getElementById("output2");
 
     async function onSubmit() {
-        bps1 = getBPS(patch1);
-        bps2 = getBPS(patch2);
-        BPS.merge_without_checksum(bps1, bps2, "merged.bps");
+        const bps1 = getBPS(patch1);
+        const bps2 = getBPS(patch2);
+        const merged = BPS.merge_without_checksum(bps1, bps2);
+        merged.export("merged.bps");
     }
   
     async function getBPS(input, output) {
