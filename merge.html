@@ -38,17 +38,20 @@
     <h1>Merge BPS Files</h1>
 
     <p>Without a source file. (You won't get checksums, though.)</p>
-
+<p>
     <label for="patch1-picker">Select the first BPS file:</label>
 
     <input type="file" accept=".bps" id="patch1-picker" name="patch1-picker" />
     <div id="output1"></div>
+</p>
 
+    <p>
     <label for="patch2-picker">Select the second BPS file:</label>
 
     <input type="file" accept=".bps" id="patch2-picker" name="patch2-picker" />
     <div id="output2"></div>
-
+</p>
+    
     <button id="submit" onclick="onSubmit()">Merge</button>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
