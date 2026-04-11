@@ -235,6 +235,10 @@ function BPS_getVLVLen(data){
 	return len;
 }
 
+BPS.merge_without_checksum = function(bps1, bps2) {
+	// TODO; not a trivial task
+	return bps1;
+};
 
 BPS.prototype.export=function(fileName){
 	var patchFileSize=BPS_MAGIC.length;	
