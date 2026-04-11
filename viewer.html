@@ -67,7 +67,8 @@
         }
         const file = files[0];
         const bin = new BinFile(file, () => {
-            const bps = BPS.fromFile(new BinFile(bin));
+            const bps = BPS.fromFile(bin);
+            console.log("yep");
             output.innerHTML = bps.fullString();
         });
     }
