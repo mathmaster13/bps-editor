@@ -70,7 +70,7 @@
     async function onSubmit() {
         bps1 = getBPS(patch1);
         bps2 = getBPS(patch2);
-        BPS.merge_without_checksum(bps1, bps2);
+        BPS.merge_without_checksum(bps1, bps2, "merged.bps");
     }
   
     async function getBPS(input, output) {
