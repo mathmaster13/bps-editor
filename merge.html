@@ -44,6 +44,7 @@
     <input type="file" accept=".bps" id="patch1-picker" name="patch1-picker" />
     <div id="output1"></div>
 </p>
+    <div id="viewer"></div>
 
     <p>
     <label for="patch2-picker">Select the second BPS file:</label>
@@ -65,14 +66,23 @@
     const patch1 = document.getElementById("patch1-picker");
     const patch2 = document.getElementById("patch2-picker");
     const output1 = document.getElementById("output1");
-    const output1 = document.getElementById("output2");
+    const output2 = document.getElementById("output2");
+    const viewer = document.getElementById("viewer");
 
     async function onSubmit() {
+        const bps = (await merge());
+        if (!bps) {
+            output.innerHTML = "";
+        } else {
+            output.innerHTML = bps.fullString();
+            bps.export("merged.bps").save();
+        }
+    }
+
+    async function merge() {
         getBPS(patch1, (bps1) => {
             getBPS(patch2, (bps2) => {
-                bin = BPS.merge_without_checksum(bps1, bps2)
-                    .export("merged.bps");
-                
+                BPS.merge_without_checksum(bps1, bps2)
             };
         };
     }
