@@ -68,13 +68,16 @@
     const output1 = document.getElementById("output2");
 
     async function onSubmit() {
-        const bps1 = getBPS(patch1);
-        const bps2 = getBPS(patch2);
-        const merged = BPS.merge_without_checksum(bps1, bps2);
-        merged.export("merged.bps");
+        getBPS(patch1, (bps1) => {
+            getBPS(patch2, (bps2) => {
+                bin = BPS.merge_without_checksum(bps1, bps2)
+                    .export("merged.bps");
+                
+            };
+        };
     }
   
-    async function getBPS(input, output) {
+    async function getBPS(input, output, callback) {
         const files = input.files;
         if (files.length === 0) {
             output.innerHTML = "No file selected. Please try again.";
@@ -88,10 +91,9 @@
         const file = files[0];
         let bps = undefined;
         const bin = new BinFile(file, () => {
-           bps = BPS.fromFile(new BinFile(bin));
+           bps = BPS.fromFile(bin);
+           return callback(bps);
         });
-        while (!bps) {}
-        return bps;
     }
 </script>
 </body>
